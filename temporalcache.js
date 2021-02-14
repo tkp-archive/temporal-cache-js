@@ -1,7 +1,7 @@
 // saving name
 //
 
-export function TCException(message) {
+function TCException(message) {
   const error = new Error(message);
   return error;
 }
@@ -73,7 +73,7 @@ const _monthly = (last, now, monthly) =>
  * @param {number} monthly
  * @returns
  */
-export const should_expire = (
+const should_expire = (
   last,
   now,
   secondly,
@@ -99,7 +99,7 @@ export const should_expire = (
  * @param {object} options
  * @returns
  */
-export const calc = (options) => {
+const calc = (options) => {
   const {
     seconds = 0,
     minutes = 0,
@@ -125,7 +125,8 @@ export const calc = (options) => {
  * for example, expire(0, 30, 16)(...) will expire the cache at 4:30pm every day
  * @param {object} options
  */
-export const expire = (options) => {
+const expire = (options) => {
+  let { second = null } = options;
   const {
     minute = null,
     hour = null,
@@ -134,7 +135,6 @@ export const expire = (options) => {
     week = null,
     month = null,
   } = options;
-  let { second = null } = options;
 
   if (![second, minute, hour, day, week, month].some((elem) => elem !== null)) {
     second = 0;
@@ -199,16 +199,16 @@ export const expire = (options) => {
   return _wrapper;
 };
 
-export const expire_minutely = (on = 0) => (foo) => expire({ second: on })(foo);
-export const expire_hourly = (on = 0) => (foo) => expire({ minute: on })(foo);
-export const expire_daily = (on = 0) => (foo) => expire({ hour: on })(foo);
-export const expire_monthly = (on = 0) => (foo) => expire({ day: on })(foo);
+const expire_minutely = (on = 0) => (foo) => expire({ second: on })(foo);
+const expire_hourly = (on = 0) => (foo) => expire({ minute: on })(foo);
+const expire_daily = (on = 0) => (foo) => expire({ hour: on })(foo);
+const expire_monthly = (on = 0) => (foo) => expire({ day: on })(foo);
 
 /**
  * Expires all entries in the cache every interval
  * @param {object} options
  */
-export const interval = (options) => {
+const interval = (options) => {
   let { seconds = 0 } = options;
   const {
     minutes = 0,
@@ -249,7 +249,26 @@ export const interval = (options) => {
   return _wrapper;
 };
 
-export const interval_minutely = () => (foo) => interval({ seconds: 60 })(foo);
-export const interval_hourly = () => (foo) => interval({ minutes: 60 })(foo);
-export const interval_daily = () => (foo) => interval({ hours: 60 })(foo);
-export const interval_monthly = () => (foo) => interval({ months: 60 })(foo);
+const interval_minutely = () => (foo) => interval({ seconds: 60 })(foo);
+const interval_hourly = () => (foo) => interval({ minutes: 60 })(foo);
+const interval_daily = () => (foo) => interval({ hours: 60 })(foo);
+const interval_monthly = () => (foo) => interval({ months: 60 })(foo);
+
+module.exports = {
+  // utility
+  TCException,
+  should_expire,
+  calc,
+  // expire
+  expire,
+  expire_minutely,
+  expire_hourly,
+  expire_daily,
+  expire_monthly,
+  // interval
+  interval,
+  interval_minutely,
+  interval_hourly,
+  interval_daily,
+  interval_monthly,
+};
