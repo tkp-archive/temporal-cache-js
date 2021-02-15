@@ -28,3 +28,11 @@ The interval cache expires every `time` interval since its first use
 
 The expire cache expires on the time given, in scheduler/cron style.
 
+## Development
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+## License
+
+This software is licensed under the Apache 2.0 license. See the
+[LICENSE](LICENSE) and [AUTHORS](AUTHORS) files for details.
