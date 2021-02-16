@@ -178,9 +178,9 @@ const expire = (options) => {
 
     const _wrapped_function = (...args) => {
       const now = new Date();
-
+      const key = JSON.stringify(args);
       if (
-        !cache.has(args) ||
+        !cache.has(key) ||
         should_expire(
           last,
           now,
@@ -194,10 +194,10 @@ const expire = (options) => {
         )
       ) {
         const val = foo(...args);
-        cache[args] = val;
+        cache.set(key, val);
       }
       last = now;
-      return cache[args];
+      return cache.get(key);
     };
     return _wrapped_function;
   };
@@ -233,7 +233,7 @@ const interval = (options) => {
   }
 
   const _wrapper = (foo) => {
-    let last = new Date();
+    let last = new Date(0);
     const cache = new Map();
 
     const _wrapped_function = (...args) => {
@@ -241,7 +241,7 @@ const interval = (options) => {
 
       if (
         (now - last) / 1000 >
-        calc(seconds, minutes, hours, days, weeks, months, years)
+        calc({ seconds, minutes, hours, days, weeks, months, years })
       ) {
         const val = foo(...args);
         cache[args] = val;
