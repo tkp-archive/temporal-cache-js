@@ -19,6 +19,15 @@ const toProperCase = (st) =>
     (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
   );
 
+let TEMPORAL_CACHE_GLOBAL_DISABLE = false;
+
+const disable = () => {
+  TEMPORAL_CACHE_GLOBAL_DISABLE = true;
+};
+const enable = () => {
+  TEMPORAL_CACHE_GLOBAL_DISABLE = false;
+};
+
 /**
  * @param {date} last last datetime
  * @param {date} now current datetime
@@ -191,7 +200,8 @@ const expire = (options) => {
           day_of_week,
           week,
           month,
-        )
+        ) ||
+        TEMPORAL_CACHE_GLOBAL_DISABLE
       ) {
         const val = foo(...args);
         cache.set(key, val);
@@ -241,7 +251,8 @@ const interval = (options) => {
 
       if (
         (now - last) / 1000 >
-        calc({ seconds, minutes, hours, days, weeks, months, years })
+          calc({ seconds, minutes, hours, days, weeks, months, years }) ||
+        TEMPORAL_CACHE_GLOBAL_DISABLE
       ) {
         const val = foo(...args);
         cache[args] = val;
@@ -264,6 +275,9 @@ module.exports = {
   TCException,
   should_expire,
   calc,
+  TEMPORAL_CACHE_GLOBAL_DISABLE,
+  enable,
+  disable,
   // expire
   expire,
   expire_minutely,

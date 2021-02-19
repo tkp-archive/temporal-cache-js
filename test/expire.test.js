@@ -6,7 +6,7 @@
  * the Apache License 2.0.  The full license can be found in the LICENSE file.
  *
  */
-const {expire} = require("../temporalcache");
+const {expire, disable, enable} = require("../temporalcache");
 
 
 describe("Expire tests", () => {
@@ -40,4 +40,43 @@ describe("Expire tests", () => {
 
         global.Date = realDate;
     });
+
+    test("test disable", () => {
+      let now = new Date(2018, 1, 1, 1, 1, 1);
+      let later = new Date(2018, 1, 1, 1, 2, 0);
+      let later2 = new Date(2018, 1, 1, 1, 2, 1);
+
+      // mock date
+      const realDate = Date;
+      global.Date = class extends Date {
+          constructor() {
+            return now;
+          }
+        };
+
+      const foo = expire({second: 1})(() => {
+          return Math.random();
+      });
+
+      let x = foo();
+      expect(x).toBe(foo());
+
+      disable();
+      expect(x !== foo()).toBe(true);
+
+      enable();
+      x = foo();
+      expect(x === foo()).toBe(true);
+
+
+      now = later;
+
+      expect(x === foo()).toBe(true);
+
+      now = later2;
+
+      expect(x !== foo()).toBe(true);
+
+      global.Date = realDate;
+  });
 });
