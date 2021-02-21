@@ -1,6 +1,6 @@
 {
   "name": "temporal-cache",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Time-based cache invalidation",
   "main": "temporalcache.js",
   "types": "temporalcache.d.ts",
