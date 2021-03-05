@@ -2,8 +2,8 @@
 
 Time-based cache invalidation
 
-[![Build Status](https://github.com/timkpaine/temporal-cache-js/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/timkpaine/temporal-cache/actions?query=workflow%3A%22Build+Status%22)
-[![License](https://img.shields.io/github/license/timkpaine/temporal-cache-js.svg)](https://www.npmjs.com/package/temporal-cache)
+[![Build Status](https://github.com/iexcloud/temporal-cache-js/workflows/Build%20Status/badge.svg?branch=main)](https://github.com/iexcloud/temporal-cache/actions?query=workflow%3A%22Build+Status%22)
+[![License](https://img.shields.io/github/license/iexcloud/temporal-cache-js.svg)](https://www.npmjs.com/package/temporal-cache)
 [![npm](https://img.shields.io/npm/v/temporal-cache.svg)](https://www.npmjs.com/package/temporal-cache)
 
 
