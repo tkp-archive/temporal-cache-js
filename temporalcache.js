@@ -214,10 +214,22 @@ const expire = (options) => {
   return _wrapper;
 };
 
-const expire_minutely = (on = 0) => (foo) => expire({ second: on })(foo);
-const expire_hourly = (on = 0) => (foo) => expire({ minute: on })(foo);
-const expire_daily = (on = 0) => (foo) => expire({ hour: on })(foo);
-const expire_monthly = (on = 0) => (foo) => expire({ day: on })(foo);
+const expire_minutely =
+  (on = 0) =>
+  (foo) =>
+    expire({ second: on })(foo);
+const expire_hourly =
+  (on = 0) =>
+  (foo) =>
+    expire({ minute: on })(foo);
+const expire_daily =
+  (on = 0) =>
+  (foo) =>
+    expire({ hour: on })(foo);
+const expire_monthly =
+  (on = 0) =>
+  (foo) =>
+    expire({ day: on })(foo);
 
 /**
  * Expires all entries in the cache every interval
